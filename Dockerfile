@@ -1,19 +1,12 @@
-name: Build Docker Image
+FROM node:18
 
-on:
-  push:
-    branches:
-      - master
-      - translator
+WORKDIR /app
 
-jobs:
-  build_image:
-    runs-on: ubuntu-latest
+COPY package.json .
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+RUN npm install
 
-      - name: Build Docker Image
-        run: |
-          docker build -t your-image-name:latest .
+COPY . .
+
+CMD ["npm", "start"]
+
